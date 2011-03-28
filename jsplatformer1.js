@@ -50,7 +50,7 @@ function init()
 	context2D = canvas.getContext('2d');
 	for (var i=0; i< 10000; i++)
 	{
-		particles.push(new Particle(600, 400));
+		particles.push(new Particle(canvas.width, canvas.height));
 	}
 	setInterval(draw, 1000 / FPS);
 }
