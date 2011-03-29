@@ -39,7 +39,7 @@ Particle.prototype.update = function() {
 }
 
 Particle.prototype.drawIt = function(ctx) {
-	ctx.fillRect(this.x, this.y, 2, 2);
+	ctx.fillRect(this.x, this.y, 3, 3);
 }
 
 window.onload = init;
@@ -48,7 +48,7 @@ function init()
 {
 	canvas = document.getElementById('canvas');
 	context2D = canvas.getContext('2d');
-	for (var i=0; i< 10000; i++)
+	for (var i=0; i< 1000; i++)
 	{
 		particles.push(new Particle(canvas.width, canvas.height));
 	}
