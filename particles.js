@@ -6,7 +6,7 @@ function Field(canvas) {
     this.context2D = canvas.getContext('2d');
     this.particles = new Array();
 
-    for (var i=0; i< 1000; i++)
+    for (var i=0; i< 500; i++)
     {
 	this.particles.push(new Particle(canvas.width, canvas.height));
     }
