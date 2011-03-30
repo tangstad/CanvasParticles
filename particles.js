@@ -71,8 +71,18 @@ function init()
 {
     canvas = document.getElementById('canvas');
     var field = new Field(canvas);
-    var draw = function() {
-	field.draw();
+    var running = false;
+    var runId;
+
+    // draw once to have something to click
+    field.draw();
+
+    canvas.onclick = function () {
+	if (running) {
+	    clearInterval(runId);
+	} else {
+	    runId = setInterval(function() { field.draw() }, 1000 / FPS);
+	}
+	running = !running;
     }
-    setInterval(function() { field.draw() }, 1000 / FPS);
 }
