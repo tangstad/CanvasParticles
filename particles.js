@@ -1,8 +1,31 @@
 // target frames per second
 const FPS = 30;
-var canvas = null;
-var context2D = null;
-var particles = new Array();
+
+function Field(canvas) {
+    this.canvas = canvas;
+    this.context2D = canvas.getContext('2d');
+    this.particles = new Array();
+
+    for (var i=0; i< 1000; i++)
+    {
+	this.particles.push(new Particle(canvas.width, canvas.height));
+    }
+}
+
+Field.prototype.draw = function()
+{
+    this.context2D.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context2D.fillStyle = '#000';
+    this.context2D.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context2D.fillStyle = '#fff';
+
+    var len = this.particles.length;
+    for (var i=0; i<len; i++)
+    {
+	this.particles[i].drawIt(this.context2D);
+	this.particles[i].update();
+    }
+}
 
 // will return 0 to range-1
 var rand = function(range) {
@@ -47,25 +70,9 @@ window.onload = init;
 function init()
 {
     canvas = document.getElementById('canvas');
-    context2D = canvas.getContext('2d');
-    for (var i=0; i< 1000; i++)
-    {
-	particles.push(new Particle(canvas.width, canvas.height));
+    var field = new Field(canvas);
+    var draw = function() {
+	field.draw();
     }
-    setInterval(draw, 1000 / FPS);
-}
-
-function draw()
-{
-    context2D.clearRect(0, 0, canvas.width, canvas.height);
-    context2D.fillStyle = '#000';
-    context2D.fillRect(0, 0, canvas.width, canvas.height);
-    context2D.fillStyle = '#fff';
-
-    var len = particles.length;
-    for (var i=0; i<len; i++)
-    {
-	particles[i].drawIt(context2D);
-	particles[i].update();
-    }
+    setInterval(function() { field.draw() }, 1000 / FPS);
 }
