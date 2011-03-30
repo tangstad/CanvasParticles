@@ -17,7 +17,6 @@ Field.prototype.draw = function()
     this.context2D.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.context2D.fillStyle = '#000';
     this.context2D.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.context2D.fillStyle = '#fff';
 
     var len = this.particles.length;
     for (var i=0; i<len; i++)
@@ -37,8 +36,10 @@ function Particle(w, h) {
     this.h = h;
     this.x = rand(w);
     this.y = rand(h);
-    this.dx = Math.random()*4 - 2;
+    this.dx = Math.random()*8 - 4;
     this.dy = Math.random()*4 - 2;
+    this.color = '#' + rand(16).toString(16) + '00';
+    this.size = rand(10) + 10;
 }
 
 Particle.prototype.update = function() {
@@ -62,7 +63,13 @@ Particle.prototype.update = function() {
 }
 
 Particle.prototype.drawIt = function(ctx) {
-    ctx.fillRect(this.x, this.y, 3, 3);
+    ctx.fillStyle = this.color;
+    var dist = (this.x < (this.w / 2)) ? this.x : (this.w - this.x)
+    var size = this.size * (100 / dist);
+    if (size > this.size) {
+	size = this.size;
+    }
+    ctx.fillRect(Math.floor(this.x), Math.floor(this.y), size, size);
 }
 
 window.onload = init;
