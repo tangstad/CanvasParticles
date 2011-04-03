@@ -14,16 +14,39 @@ function Field(canvas) {
 
 Field.prototype.draw = function()
 {
-    this.context2D.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.context2D.fillStyle = '#000';
-    this.context2D.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.drawBackground();
+    this.drawParticles();
+}
 
+Field.prototype.drawBackground = function()
+{
+    this.clearBackground();
+    this.fillBackground('#000');
+}
+
+Field.prototype.clearBackground = function()
+{
+    this.context2D.clearRect(0, 0, this.canvas.width, this.canvas.height);
+}
+
+Field.prototype.fillBackground = function(color)
+{
+    this.context2D.fillStyle = color;
+    this.context2D.fillRect(0, 0, this.canvas.width, this.canvas.height);
+}
+
+Field.prototype.drawParticles = function()
+{
     var len = this.particles.length;
     for (var i=0; i<len; i++)
     {
-	this.particles[i].drawIt(this.context2D);
-	this.particles[i].update();
+	this.drawParticle(this.particles[i]);
     }
+}
+
+Field.prototype.drawParticle = function(particle) {
+    particle.drawIt(this.context2D);
+    particle.update();
 }
 
 // will return 0 to range-1
