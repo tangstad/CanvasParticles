@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" id="http://github.com/tangstad/CanvasParticles" defaultlocale="en" viewmodes="minimized">
+	<name short="CanvasParticles">Canvas Particles</name>
+	<description>This is an example Speed Dial extension showing some particles.</description>
+	<author href="http://github.com/tangstad/">Truls Tangstad</author>
+	<icon src="images/icon_64.png"/> <!-- Icon source: http://www.openclipart.org/detail/17552 -->
+    <feature name="opera:speeddial" required="false">
+        <param name="url" value="http://github.com/tangstad/CanvasParticles"/>
+    </feature> 
+</widget>

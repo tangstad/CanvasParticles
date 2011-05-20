@@ -4,6 +4,8 @@ const FPS = 30;
 function Field(canvas) {
     this.canvas = canvas;
     this.context2D = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     this.particles = new Array();
 
     for (var i=0; i< 500; i++)
@@ -88,7 +90,7 @@ Particle.prototype.update = function() {
 Particle.prototype.drawIt = function(ctx) {
     ctx.fillStyle = this.color;
     var dist = (this.x < (this.w / 2)) ? this.x : (this.w - this.x)
-    var size = this.size * (100 / dist);
+    var size = this.size * (this.w / (dist*5));
     if (size > this.size) {
 	size = this.size;
     }
@@ -96,23 +98,29 @@ Particle.prototype.drawIt = function(ctx) {
 }
 
 window.onload = init;
+window.onresize = init;
 
 function init()
 {
     canvas = document.getElementById('canvas');
     var field = new Field(canvas);
     var running = false;
-    var runId;
 
     // draw once to have something to click
     field.draw();
+
+    if (window.runId !== undefined) {
+        window.clearInterval(runId);
+    }
 
     canvas.onclick = function () {
 	if (running) {
 	    clearInterval(runId);
 	} else {
-	    runId = setInterval(function() { field.draw() }, 1000 / FPS);
+	    window.runId = setInterval(function() { field.draw() }, 1000 / FPS);
 	}
 	running = !running;
     }
+
+    canvas.onclick();
 }
