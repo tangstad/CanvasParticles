@@ -100,6 +100,7 @@ window.onload = init;
 function init()
 {
     canvas = document.getElementById('canvas');
+    var autostart = window.location.hash === "#go";
     var field = new Field(canvas);
     var running = false;
     var runId;
@@ -114,5 +115,9 @@ function init()
 	    runId = setInterval(function() { field.draw() }, 1000 / FPS);
 	}
 	running = !running;
+    }
+
+    if (autostart) {
+        canvas.onclick();
     }
 }
